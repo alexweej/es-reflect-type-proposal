@@ -42,6 +42,8 @@ Reflect.type = function(x) {
         return @@symbolType;
     case "number":
         return @@numberType;
+    case "object":
+    case "function":
     default:   // NB: `typeof` may return arbitrary strings for implementation defined values!
         if (x === null) {
             return @@nullType;
