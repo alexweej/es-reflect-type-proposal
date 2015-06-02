@@ -6,7 +6,7 @@ This is a stage 0, "strawman" proposal.
 
 `typeof` has long been known to have perculiar behaviour. The most famously understood issue is that `typeof null === "object"`, which consistently requires special casing when dispatching on a value's type. It was [proposed] [1] to correct `typeof null` to return `"null"`, but in the interests of the Harmony/"not breaking the web" initiative, it was decided that this behaviour should remain unfixed.
 
-For the purposes of efficient specification, the *ECMAScript* specification actually defines a trivial algorithm `Type(x)` which has a more straightforward behaviour than `typeof`. In particular:
+For the purposes of efficient specification, the *ECMAScript* specification actually defines a trivial algorithm [`Type(x)`] [2] which has a more straightforward behaviour than `typeof`. In particular:
  * `null` has type *Null*; and
  * Functions have no special treatment - they are instances of *Object*.
 
@@ -14,7 +14,7 @@ Though desirable to programmers, `Type(x)` is not available to *ECMAScript* prog
 
 ## Solution
 
-A stated goal of the `Reflect` module is to ["expose the essential methods that make up JavaScript's object model as defined by the spec"] [2]. As such, it provides an obvious opportunity to make the specification's `Type(x)` algorithm available directly to *ECMAScript* programs.
+A stated goal of the `Reflect` module is to ["expose the essential methods that make up JavaScript's object model as defined by the spec"] [3]. As such, it provides an obvious opportunity to make the specification's `Type(x)` algorithm available directly to *ECMAScript* programs.
 
 `Reflect.type(x)` is proposed to accept as its sole argument any value `x` and return a symbol that uniquely corresponds to the type of the value, as defined by the specification. Such values would be exposed in the `Reflect.types` object, keyed by conventional spellings of the specification types, i.e. equivalent to:
 ```js
@@ -66,4 +66,5 @@ Reflect.type = function(x) {
 * Perhaps, for symmetry with `Object.getPrototypeOf`, it could be argued that this should be named `Reflect.getTypeOf`. This is both more verbose and at odds with the current specification language.
 
  [1]: http://wiki.ecmascript.org/doku.php?id=harmony%3atypeof_null
- [2]: https://esdiscuss.org/topic/maybe-we-need-a-reflect-api-to-iterate-over-instance-members#content-9
+ [2]: http://www.ecma-international.org/ecma-262/5.1/#sec-8
+ [3]: https://esdiscuss.org/topic/maybe-we-need-a-reflect-api-to-iterate-over-instance-members#content-9
