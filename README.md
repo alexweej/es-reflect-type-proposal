@@ -10,7 +10,7 @@ For the purposes of efficient specification, the *ECMAScript* specification actu
  * `null` has type *Null*; and
  * Functions have no special treatment - they are instances of *Object*.
 
-Though desirable `Type(x)` is not available to *ECMAScript* programs.
+Though desirable to programmers, `Type(x)` is not available to *ECMAScript* programs.
 
 ## Solution
 
