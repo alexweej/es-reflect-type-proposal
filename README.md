@@ -1,5 +1,7 @@
 # Reflect.type
 
+This is a stage 0, "strawman" proposal.
+
 ## Problem
 
 `typeof` has long been known to have perculiar behaviour. The most famously understood issue is that `typeof null === "object"`, which consistently requires special casing when dispatching on a value's type. It was [proposed] [1] to correct `typeof null` to return `"null"`, but in the interests of the Harmony/"not breaking the web" initiative, it was decided that this behaviour should remain unfixed.
@@ -53,18 +55,15 @@ Reflect.type = function(x) {
 };
 ```
 
-
 ## Notes
 
 * Using symbols to represent each type as opposed to short strings as `typeof` does may prove useful in ensuring that the domain values of `typeof` and `Reflect.type` are never accidentally mismatched.
 * Symbol descriptions can aid debugging, as the default `Symbol#toString` implementation includes the description.
 
-
 ## Outstanding Issues
 
 * How might new, user-definable value types be exposed? Assuming they become new primitives, `Reflect.type` should probably return an appropriate symbol, accessible from whatever mechanism is used to define the type. Alternatively, greater symmetry could be achieved by introducing global objects `Null` and `Undefined`, that, alongside the existing globals `Boolean`, `String`, `Symbol`, `Number`, and `Object`, and user-defined value objects, would have a `type` property holding the relevant symbol, such that e.g. `Reflect.type(undefined) === Undefined.type`
 * Perhaps, for symmetry with `Object.getPrototypeOf`, it could be argued that this should be named `Reflect.getTypeOf`. This is both more verbose and at odds with the current specification language.
-
 
  [1]: http://wiki.ecmascript.org/doku.php?id=harmony%3atypeof_null
  [2]: https://esdiscuss.org/topic/maybe-we-need-a-reflect-api-to-iterate-over-instance-members#content-9
